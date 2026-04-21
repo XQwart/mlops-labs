@@ -14,9 +14,3 @@ Pipeline состоит из четырёх последовательных э�
 2. **featurize** - генерация новых признаков (total_acidity, free_to_total_sulfur, sugar_alcohol_ratio, acid_ph_ratio).
 3. **train** - обучение RandomForestRegressor с подбором гиперпараметров через GridSearchCV (4-fold CV) на 80% выборки.
 4. **evaluate** - оценка качества на отложенной выборке (20%) по метрикам RMSE, MAE, R².
-
-## Как запустить
-
-Требования: Python 3.12, conda.
-
-```bash
