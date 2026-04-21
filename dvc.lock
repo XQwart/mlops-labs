@@ -5,8 +5,8 @@ stages:
     deps:
     - path: src/config.yaml
       hash: md5
-      md5: 8a5b54d9157d15a6a652ee9369b637ca
-      size: 532
+      md5: 0f0587493661e2c8d10e117910b30221
+      size: 533
     - path: src/stages/clean.py
       hash: md5
       md5: 3c8da624b4194297344408c2379c5025
@@ -25,8 +25,8 @@ stages:
       size: 65196
     - path: src/config.yaml
       hash: md5
-      md5: 8a5b54d9157d15a6a652ee9369b637ca
-      size: 532
+      md5: 0f0587493661e2c8d10e117910b30221
+      size: 533
     - path: src/stages/featurize.py
       hash: md5
       md5: 57665ccc269791e0ec2406e9e64fb33d
@@ -45,8 +45,8 @@ stages:
       size: 136688
     - path: src/config.yaml
       hash: md5
-      md5: 8a5b54d9157d15a6a652ee9369b637ca
-      size: 532
+      md5: 0f0587493661e2c8d10e117910b30221
+      size: 533
     - path: src/stages/train.py
       hash: md5
       md5: 55ab636fe4f3a0d9e0834e73bf816abe
@@ -58,8 +58,8 @@ stages:
       size: 26848
     - path: models/wine_model.joblib
       hash: md5
-      md5: 8fac022ac34e498c2d65b54dc6ebb697
-      size: 4913946
+      md5: d78f306382947445cb9c8f65addfad68
+      size: 5046426
   evaluate:
     cmd: python src/stages/evaluate.py
     deps:
@@ -69,12 +69,12 @@ stages:
       size: 26848
     - path: models/wine_model.joblib
       hash: md5
-      md5: 8fac022ac34e498c2d65b54dc6ebb697
-      size: 4913946
+      md5: d78f306382947445cb9c8f65addfad68
+      size: 5046426
     - path: src/config.yaml
       hash: md5
-      md5: 8a5b54d9157d15a6a652ee9369b637ca
-      size: 532
+      md5: 0f0587493661e2c8d10e117910b30221
+      size: 533
     - path: src/stages/evaluate.py
       hash: md5
       md5: da580a747d32b3615c1541e20bca0e6f
@@ -82,5 +82,5 @@ stages:
     outs:
     - path: metrics/metrics.json
       hash: md5
-      md5: c279534201b366cd8deae703b58a4786
-      size: 89
+      md5: 912833c40b78237edf120a08774be3ad
+      size: 90
