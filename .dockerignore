@@ -1,0 +1,15 @@
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache
+.coverage
+.venv
+venv
+*.db
+test_predictions.db
+.git
+.gitignore
+.idea
+.vscode
+*.md
