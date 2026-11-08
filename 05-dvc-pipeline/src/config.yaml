@@ -1,0 +1,25 @@
+data:
+  url: "https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv"
+  raw_path: "data/winequality_raw.csv"
+
+clean:
+  output_path: "data/winequality_clean.csv"
+  lower_quantile: 0.01
+  upper_quantile: 0.99
+
+featurize:
+  output_path: "data/winequality_final.csv"
+
+split:
+  test_size: 0.2
+  random_state: 42
+
+train:
+  cv: 4
+  n_estimators: [100, 200]
+  max_depth: [20, 30]
+  model_path: "models/wine_model.joblib"
+  test_path: "data/test_wine.csv"
+
+evaluate:
+  metrics_path: "metrics/metrics.json"

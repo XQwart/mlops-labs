@@ -1,0 +1,38 @@
+stages:
+  clean:
+    cmd: python src/stages/clean.py
+    deps:
+      - src/stages/clean.py
+      - src/config.yaml
+    outs:
+      - data/winequality_clean.csv
+
+  featurize:
+    cmd: python src/stages/featurize.py
+    deps:
+      - src/stages/featurize.py
+      - src/config.yaml
+      - data/winequality_clean.csv
+    outs:
+      - data/winequality_final.csv
+
+  train:
+    cmd: python src/stages/train.py
+    deps:
+      - src/stages/train.py
+      - src/config.yaml
+      - data/winequality_final.csv
+    outs:
+      - models/wine_model.joblib
+      - data/test_wine.csv
+
+  evaluate:
+    cmd: python src/stages/evaluate.py
+    deps:
+      - src/stages/evaluate.py
+      - src/config.yaml
+      - models/wine_model.joblib
+      - data/test_wine.csv
+    metrics:
+      - metrics/metrics.json:
+          cache: false
