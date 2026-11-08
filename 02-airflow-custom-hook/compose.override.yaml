@@ -9,13 +9,7 @@ x-airflow-common:
     # Dag specific connection setup
     AIRFLOW_CONN_CARSAPI: http://airflow:airflow@carsapi
   volumes:
-    - ./src:/opt/airflow/custom/src
-    - ./setup.py:/opt/airflow/custom/setup.py
-    - build:/opt/airflow/custom/build
-    - airflow-data-volume:/data
-    # - ./data:/opt/airflow/data
-    - ./data:/data 
-    # - /media/kirilman/Z3/URFU/MLOPS/Лабы/data-pipelines-with-airflow-2nd-ed/chapter09/data:/data
+    - ./data:/data
 
 services:
   airflow-apiserver:
@@ -68,9 +62,4 @@ services:
     environment:
       API_USER: airflow
       API_PASSWORD: airflow
-    volumes:
-      - ./cars.csv:/app/cars.csv:ro  # 
 
-volumes:
-  airflow-data-volume:
-  build:

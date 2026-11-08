@@ -1,16 +1,33 @@
-# MLOps Lab 5: DVC Pipeline
+# 05 · DVC pipeline
 
-Воспроизводимый pipeline обучения модели машинного обучения с использованием DVC (Data Version Control). Работа выполнена в рамках курса "Приложения машинного обучения".
+A reproducible training pipeline managed by DVC. It predicts the quality score of red wine from its physicochemical properties (UCI Wine Quality).
 
-## Задача
+## Stages ([`dvc.yaml`](dvc.yaml))
 
-Регрессия на датасете Wine Quality (UCI Machine Learning Repository): предсказание органолептической оценки красного вина (quality) на основе физико-химических характеристик.
+```
+clean ──> featurize ──> train ──> evaluate
+```
 
-## Структура pipeline
+| Stage | What it does |
+|-------|--------------|
+| `clean` | Downloads the raw data, removes duplicates and missing values, clips outliers to the 1st–99th percentiles |
+| `featurize` | Adds `total_acidity`, `free_to_total_sulfur`, `sugar_alcohol_ratio` and `acid_ph_ratio` |
+| `train` | `RandomForestRegressor` with `GridSearchCV` (4-fold) on an 80% split |
+| `evaluate` | RMSE, MAE and R² on the held-out 20%, written to `metrics/metrics.json` |
 
-Pipeline состоит из четырёх последовательных этапов, описанных в `dvc.yaml`:
+All parameters (URLs, paths, quantiles, split, grid) are in [`src/config.yaml`](src/config.yaml). DVC reruns only the stages whose inputs changed.
 
-1. **clean** - загрузка сырых данных с UCI, удаление дубликатов и пропусков, обрезка выбросов по квантилям 1% и 99%.
-2. **featurize** - генерация новых признаков (total_acidity, free_to_total_sulfur, sugar_alcohol_ratio, acid_ph_ratio).
-3. **train** - обучение RandomForestRegressor с подбором гиперпараметров через GridSearchCV (4-fold CV) на 80% выборки.
-4. **evaluate** - оценка качества на отложенной выборке (20%) по метрикам RMSE, MAE, R².
+## Results
+
+| RMSE | MAE | R² |
+|------|-----|----|
+| 0.600 | 0.472 | 0.350 |
+
+## Run
+
+```bash
+pip install dvc pandas scikit-learn pyyaml joblib
+dvc repro          # run or update the pipeline
+dvc metrics show   # print metrics
+dvc dag            # show the stage graph
+```

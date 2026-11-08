@@ -4,17 +4,17 @@ import os
 
 import pandas as pd
 import requests
-from airflow import DAG
-from airflow.operators.python import PythonOperator
+from airflow.sdk import DAG
+from airflow.providers.standard.operators.python import PythonOperator
 from datetime import datetime
 
 # Параметры подключения к вашему API
-MOVIELENS_HOST = os.environ.get("MOVIELENS_HOST", "carsapi")
-MOVIELENS_SCHEMA = os.environ.get("MOVIELENS_SCHEMA", "http")
-MOVIELENS_PORT = os.environ.get("MOVIELENS_PORT", "8081")
+CARS_API_HOST = os.environ.get("CARS_API_HOST", "carsapi")
+CARS_API_SCHEMA = os.environ.get("CARS_API_SCHEMA", "http")
+CARS_API_PORT = os.environ.get("CARS_API_PORT", "8081")
 
-MOVIELENS_USER = os.environ["MOVIELENS_USER"]
-MOVIELENS_PASSWORD = os.environ["MOVIELENS_PASSWORD"]
+CARS_API_USER = os.environ.get("CARS_API_USER", "airflow")
+CARS_API_PASSWORD = os.environ.get("CARS_API_PASSWORD", "airflow")
 
 # Настройка логгера
 logger = logging.getLogger(__name__)
@@ -23,8 +23,8 @@ logger = logging.getLogger(__name__)
 def _get_session():
     """Создаёт сессию для запросов к вашему Car API."""
     session = requests.Session()
-    session.auth = (MOVIELENS_USER, MOVIELENS_PASSWORD)
-    base_url = f"{MOVIELENS_SCHEMA}://{MOVIELENS_HOST}:{MOVIELENS_PORT}"
+    session.auth = (CARS_API_USER, CARS_API_PASSWORD)
+    base_url = f"{CARS_API_SCHEMA}://{CARS_API_HOST}:{CARS_API_PORT}"
     return session, base_url
 
 
