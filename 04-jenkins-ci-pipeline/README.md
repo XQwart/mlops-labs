@@ -1,15 +1,8 @@
 # 04 · Jenkins CI pipeline
 
-A Jenkins job that downloads data, trains a model, deploys it and checks that it responds. The stages are in [`jenkins_pipline.sh`](jenkins_pipline.sh), one block per build step.
+A Jenkins job for the used-car price model. It downloads and cleans the data (`download.py`), trains with MLflow logging (`train_model.py`), serves the best model with `mlflow models serve` on port 5003 and sends a test request to it. The build steps are in `jenkins_pipline.sh`.
 
-| Stage | What happens |
-|-------|--------------|
-| 1. download | Creates a venv, installs `requirements.txt`, runs `download.py` (downloads the used-cars dataset, cleans outliers, ordinal-encodes categoricals) |
-| 2. train | `train_model.py`: `SGDRegressor` + `GridSearchCV` over penalty, loss and alpha, with a power-transformed target. Parameters, metrics and the model go to MLflow, and the path to the best run is written to `best_model.txt` |
-| 3. deploy | `mlflow models serve` on port 5003, run in the background (`BUILD_ID=dontKillMe` stops Jenkins from killing it) |
-| 4. healthy | A `curl` request to `/invocations` with a sample feature vector |
-
-## Run locally
+Run it locally without Jenkins:
 
 ```bash
 pip install -r requirements.txt
